@@ -24,6 +24,9 @@ import androidx.compose.ui.unit.dp
 import com.example.handphone.R
 import com.example.handphone.ui.theme.HandphoneTheme
 
+//Composable untuk menampilkan item handphone dalam bentuk card.
+ // Menampilkan gambar, judul, harga, dan deskripsi handphone.
+
 @Composable
 fun HandphoneItem(
     image: Int,
@@ -66,6 +69,7 @@ fun HandphoneItem(
     }
 }
 
+//Composable untuk menampilkan preview dari HandphoneItem.
 @Composable
 @Preview(showBackground = true)
 fun RewardItemPreview() {
@@ -75,3 +79,6 @@ fun RewardItemPreview() {
                 "                \"Dengan material aluminium sekelas industri dirgantara yang kuat dan tahan lama. Membuat iPhone 11 begitu mengagumkan dikelasnya. Dengan Chip A13 Bionic yang begitu andal, semua yang Anda lakukan begitu cepat dan lancar dan juga mampu bekerja dengan cara yang paling menghemat daya, sehingga baterai lebih tahan lama.")
     }
 }
+
+// Inti dari program ini yaitu untuk menampilkan item handphone dalam bentuk card dengan gambar, judul, harga, dan deskripsi,
+// menggunakan Material Design dan Compose UI.

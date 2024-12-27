@@ -43,6 +43,7 @@ import com.example.handphone.di.Injection
 import com.example.handphone.ui.common.UiState
 import com.example.handphone.ui.theme.HandphoneTheme
 
+// Composable untuk menampilkan layar detail handphone
 @Composable
 fun DetailScreen(
     handphoneId: Long,
@@ -51,7 +52,7 @@ fun DetailScreen(
             Injection.provideRepository()
         )
     ),
-    navigateBack: () -> Unit,
+    navigateBack: () -> Unit, // Fungsi untuk navigasi kembali
 ) {
     viewModel.uiState.collectAsState(initial = UiState.Loading).value.let { uiState ->
         when (uiState) {
@@ -73,14 +74,15 @@ fun DetailScreen(
     }
 }
 
+// Composable untuk menampilkan konten detail handphone
 @Composable
 fun DetailContent(
-    @DrawableRes image: Int,
-    title: String,
-    price: String,
-    description: String,
-    onBackClick: () -> Unit,
-    modifier: Modifier = Modifier,
+    @DrawableRes image: Int, // Resource ID gambar handphone
+    title: String, // Judul handphone
+    price: String, // Harga handphone
+    description: String, // Deskripsi handphone
+    onBackClick: () -> Unit, // Fungsi untuk navigasi kembali
+    modifier: Modifier = Modifier, // Modifier untuk mengatur tampilan
 ) {
 
     Column(modifier = modifier) {
@@ -92,52 +94,54 @@ fun DetailContent(
         ) {
             Box {
                 Image(
-                    painter = painterResource(image),
+                    painter = painterResource(image), // Menampilkan gambar handphone
                     contentDescription = null,
-                    contentScale = ContentScale.Crop,
+                    contentScale = ContentScale.Crop, // Mengatur skala gambar
                     modifier = modifier
                         .height(400.dp)
                         .fillMaxWidth()
                         .clip(RoundedCornerShape(bottomStart = 20.dp, bottomEnd = 20.dp))
                 )
                 Icon(
-                    imageVector = Icons.Default.ArrowBack,
-                    contentDescription = stringResource(R.string.back),
+                    imageVector = Icons.Default.ArrowBack, // Menampilkan icon back
+                    contentDescription = stringResource(R.string.back), // Memberikan deskripsi untuk icon back
                     modifier = Modifier
                         .padding(16.dp)
                         .clickable { onBackClick() }
                 )
             }
+            // Column untuk judul, harga, dan deskripsi
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier.padding(16.dp)
             ) {
                 Text(
-                    text = title,
-                    textAlign = TextAlign.Center,
-                    style = MaterialTheme.typography.headlineSmall.copy(
+                    text = title, // Menampilkan judul handphone
+                    textAlign = TextAlign.Center, // Mengatur alignment text
+                    style = MaterialTheme.typography.headlineSmall.copy( // Mengatur style text
                         fontWeight = FontWeight.ExtraBold
                     ),
                 )
                 Text(
-                    text = price,
-                    style = MaterialTheme.typography.titleMedium.copy(
+                    text = price, // Menampilkan harga handphone
+                    style = MaterialTheme.typography.titleMedium.copy( // Mengatur style text
                         fontWeight = FontWeight.ExtraBold
                     ),
-                    color = MaterialTheme.colorScheme.secondary
+                    color = MaterialTheme.colorScheme.secondary // Mengatur warna text
                 )
                 Text(
-                    text = description,
-                    style = MaterialTheme.typography.titleMedium.copy(
+                    text = description, // Menampilkan deskripsi handphone
+                    style = MaterialTheme.typography.titleMedium.copy( // Mengatur style text
                         fontWeight = FontWeight.Normal
                     ),
-                    color = MaterialTheme.colorScheme.secondary
+                    color = MaterialTheme.colorScheme.secondary // Mengatur warna text
                 )
             }
         }
     }
 }
 
+// Composable untuk menampilkan preview dari DetailContent
 @Preview(showBackground = true, device = Devices.PIXEL_4)
 @Composable
 fun DetailContentPreview() {

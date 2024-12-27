@@ -12,16 +12,20 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.handphone.ui.theme.HandphoneTheme
 
+// Activity utama aplikasi
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // Mengatur konten composable
         setContent {
+            // Menggunakan tema aplikasi
             HandphoneTheme {
-                // A surface container using the 'background' color from the theme
+                // Surface untuk background
                 Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
+                    modifier = Modifier.fillMaxSize(), // Mengisi seluruh layar
+                    color = MaterialTheme.colorScheme.background // Menggunakan warna background dari tema
                 ) {
+                    // Menampilkan composable utama aplikasi
                     HandphoneApp()
                 }
             }

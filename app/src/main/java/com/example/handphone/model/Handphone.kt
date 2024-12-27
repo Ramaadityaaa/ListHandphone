@@ -7,3 +7,6 @@ data class Handphone(
     val price: String,
     val description: String,
 )
+
+// Program ini di gunakan untuk merepresentasikan data handphone dengan ID, gambar, judul, harga, dan deskripsi
+// yang nantinya akan di tampilkan pada halaman kedua.

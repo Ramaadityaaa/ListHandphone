@@ -126,7 +126,7 @@ fun SearchBar(
     SearchBar(
         query = query,
         onQueryChange = onQueryChange,
-        onSearch = {},  // This can be left empty if you don't need a specific action on search
+        onSearch = {},
         active = false,
         onActiveChange = {},
         leadingIcon = {
@@ -211,3 +211,5 @@ fun ScrollToTopButton(
         )
     }
 }
+// Inti dari program ini untuk menampilkan layar home dengan daftar handphone, search bar, dan tombol scroll to top,
+//       menggunakan Material Design dan Compose UI, serta mengelola state UI dengan ViewModel.

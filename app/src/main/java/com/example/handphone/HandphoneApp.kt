@@ -30,15 +30,14 @@ import com.example.handphone.navigation.NavigationItem
 import com.example.handphone.navigation.Screen
 import com.example.handphone.ui.screen.detail.DetailScreen
 import com.example.handphone.ui.screen.home.HomeScreen
-import com.example.handphone.ui.screen.profile.ProfileScreen
 import com.example.handphone.ui.theme.HandphoneTheme
 
+// Composable utama untuk aplikasi Handphone
 @Composable
 fun HandphoneApp(
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController(),
 ) {
-
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
 
@@ -55,33 +54,32 @@ fun HandphoneApp(
             startDestination = Screen.Home.route,
             modifier = Modifier.padding(innerPadding)
         ) {
+            // Composable untuk screen Home
             composable(Screen.Home.route) {
                 HomeScreen(
-                    navigateToDetail = { handphoneId ->
-                        navController.navigate(Screen.DetailHandphone.createRoute(handphoneId))
+                    navigateToDetail = { handphoneId -> // Lambda untuk navigasi ke detail
+                        navController.navigate(Screen.DetailHandphone.createRoute(handphoneId)) // Navigasi ke detail dengan id
                     }
                 )
             }
-            composable(Screen.Profile.route) {
-                ProfileScreen()
-            }
+            // Composable untuk screen DetailHandphone
             composable(
-                route = Screen.DetailHandphone.route,
-                arguments = listOf(navArgument("handphoneId") { type = NavType.LongType }),
+                route = Screen.DetailHandphone.route, // Route untuk screen detail
+                arguments = listOf(navArgument("handphoneId") { type = NavType.LongType }), // Argument untuk id handphone
             ) {
-                val id = it.arguments?.getLong("handphoneId") ?: -1L
+                val id = it.arguments?.getLong("handphoneId") ?: -1L // Mendapatkan id handphone dari argument
                 DetailScreen(
-                    handphoneId = id,
-                    navigateBack = {
-                        navController.navigateUp()
+                    handphoneId = id, // Meneruskan id handphone ke DetailScreen
+                    navigateBack = { // Lambda untuk navigasi kembali
+                        navController.navigateUp() // Navigasi kembali ke screen sebelumnya
                     },
                 )
             }
         }
     }
-
 }
 
+// Composable untuk Bottom Navigation Bar
 @Composable
 private fun BottomBar(
     navController: NavHostController,
@@ -90,18 +88,20 @@ private fun BottomBar(
     NavigationBar(
         modifier = modifier,
     ) {
-        val navBackStackEntry by navController.currentBackStackEntryAsState()
-        val currentRoute = navBackStackEntry?.destination?.route
 
+        val navBackStackEntry by navController.currentBackStackEntryAsState()
+        val currentRoute = navBackStackEntry?.destination?.route // Mendapatkan route saat ini
+
+        // List item untuk Bottom Navigation Bar
         val navigationItems = listOf(
             NavigationItem(
                 title = stringResource(R.string.menu_home),
-                icon = Icons.Default.Home,
+                icon = Icons.Default.Home, // Icon untuk item home
                 screen = Screen.Home
             ),
             NavigationItem(
                 title = stringResource(R.string.menu_profile),
-                icon = Icons.Default.AccountCircle,
+                icon = Icons.Default.AccountCircle, // Icon untuk item profile
                 screen = Screen.Profile
             ),
         )
@@ -116,7 +116,6 @@ private fun BottomBar(
                 label = { Text(item.title) },
                 selected = currentRoute == item.screen.route,
                 onClick = {
-
                     navController.navigate(item.screen.route) {
                         popUpTo(navController.graph.findStartDestination().id) {
                             saveState = true
@@ -124,27 +123,13 @@ private fun BottomBar(
                         restoreState = true
                         launchSingleTop = true
                     }
-
                 }
             )
         }
     }
 }
 
-//private fun shareOrder(context: Context, summary: String) {
-//    val intent = Intent(Intent.ACTION_SEND).apply {
-//        type = "text/plain"
-//        putExtra(Intent.EXTRA_SUBJECT, context.getString(R.string.dicoding_reward))
-//        putExtra(Intent.EXTRA_TEXT, summary)
-//    }
-//    context.startActivity(
-//        Intent.createChooser(
-//            intent,
-//            context.getString(R.string.dicoding_reward)
-//        )
-//    )
-//}
-
+// Preview untuk HandphoneApp
 @Preview(showBackground = true)
 @Composable
 fun HandphoneAppPreview() {
@@ -152,3 +137,5 @@ fun HandphoneAppPreview() {
         HandphoneApp()
     }
 }
+// Inti program ini untuk mengatur navigasi aplikasi, termasuk bottom navigation bar, navigasi antar screen,
+// dan penggunaan Scaffold untuk layout dasar.

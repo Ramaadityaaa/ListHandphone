@@ -7,3 +7,5 @@ data class NavigationItem(
     val icon: ImageVector,
     val screen: Screen
 )
+
+//Merepresentasikan item navigasi dengan judul, ikon, dan layar tujuan.

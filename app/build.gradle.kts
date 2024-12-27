@@ -1,14 +1,14 @@
 plugins {
-    id("com.android.application")
-    id("org.jetbrains.kotlin.android")
+    id("com.android.application") // Plugin untuk aplikasi Android
+    id("org.jetbrains.kotlin.android") // Plugin untuk Kotlin Android
 }
 
 android {
-    namespace = "com.example.handphone"
+    namespace = "com.example.handphone" // Namespace aplikasi
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.handphone"
+        applicationId = "com.example.handphone" // ID aplikasi
         minSdk = 24
         targetSdk = 34
         versionCode = 1
@@ -50,7 +50,6 @@ android {
 }
 
 dependencies {
-
     implementation("androidx.core:core-ktx:1.12.0")
     implementation(platform("androidx.compose:compose-bom:2023.05.01"))
     implementation("androidx.compose.ui:ui")
@@ -69,7 +68,6 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
     implementation("androidx.navigation:navigation-compose:2.7.5")
 
-    //testing UI testing Pada NavHost
-
+    // Implementasi library Navigation Testing untuk UI testing pada NavHost
     androidTestImplementation("androidx.navigation:navigation-testing:2.7.5")
 }

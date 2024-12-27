@@ -14,26 +14,25 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 
+// ViewModel untuk mengelola data di layar home
 class HomeViewModel(
     private val repository: HandphoneRepository
 ) : ViewModel() {
     private val _uiState: MutableStateFlow<UiState<List<DetailHandphone>>> = MutableStateFlow(UiState.Loading)
     val uiState: StateFlow<UiState<List<DetailHandphone>>>
         get() = _uiState
-
     private val _groupedHandphones = MutableStateFlow<Map<Char, List<DetailHandphone>>>(emptyMap())
+    // State untuk menyimpan query pencarian
     private val _query = mutableStateOf("")
+    // State untuk mendapatkan query pencarian dari luar
     val query: State<String> get() = _query
 
     init {
-        // Combine the original list and the search results based on the query
         viewModelScope.launch {
             combine(repository.getAllHandphones(), _groupedHandphones) { handphones, searchResult ->
                 if (_query.value.isNotBlank()) {
-                    // Show search results when the query is not blank
                     UiState.Success(searchResult.values.flatten())
                 } else {
-                    // Show the original list when the query is blank
                     UiState.Success(handphones)
                 }
             }.collect {
@@ -42,19 +41,22 @@ class HomeViewModel(
         }
     }
 
+    // Fungsi untuk mengambil semua data handphone
     fun getAllHandphones() {
         viewModelScope.launch {
             try {
-                repository.getAllHandphones()
-                    .collect { handphones ->
-                        _uiState.value = UiState.Success(handphones)
+                repository.getAllHandphones() // Mengambil data dari repository
+                    .collect {
+                            handphones ->
+                        _uiState.value = UiState.Success(handphones) // Update state UI dengan data
                     }
             } catch (e: Exception) {
-                _uiState.value = UiState.Error(e.message.toString())
+                _uiState.value = UiState.Error(e.message.toString()) // Update state UI dengan error
             }
         }
     }
 
+    // Fungsi untuk melakukan pencarian handphone
     fun search(newQuery: String) {
         _query.value = newQuery
         viewModelScope.launch {
@@ -66,3 +68,5 @@ class HomeViewModel(
         }
     }
 }
+// program viewModel di gunakan untuk mengelola data di layar home, mengambil data dari repository,
+// mengelola state UI (Loading, Success, Error), melakukan pencarian, dan pengelompokan data.
