@@ -14,4 +14,4 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "Handphone" // Nama root project
-include(":app")
+include(":app") // Menyertakan module app
